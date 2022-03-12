@@ -95,8 +95,7 @@ export default class Home {
                       <span>${series.likes} likes</span>
                   </div>
               </header>
-              <a href="#details/${series.id}" class="btn">Coments</a>
-              <a class="btn">Reservations</a>
+              <a href="#details/${series.id}" class="btn">Comments</a>
           </li>`).join('')}
       </ul>
       ${this.paginator()}
