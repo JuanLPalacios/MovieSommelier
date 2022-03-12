@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { getDetails } from './tvmaze-api';
 import './images/loading.svg';
+import { getCommentList } from './Involvement-api';
 
 export default class Details {
   _series;
@@ -24,8 +25,14 @@ export default class Details {
 
   set series(value) {
     if (value && value.then) {
-      // eslint-disable-next-line no-return-assign
-      value.then((series) => this.series = series)
+      value.then((series) => {
+        series.comments = getCommentList(series.id)
+          .then((comments) => {
+            series.comments = comments;
+            this.update();
+          });
+        this.series = series;
+      })
         .catch(() => this.navigate(window.location.hash));
     }
     this._series = value;
@@ -40,7 +47,6 @@ export default class Details {
   }
 
   update() {
-    console.log(this.series);
     this.detailsElement.innerHTML = `
       ${this.series ? `<div class="backdrop">
       <div class="modal">
@@ -67,7 +73,18 @@ export default class Details {
               <div>${this.series.status}</div>
             </div>
           </div>
-          `}
+          <h3>Comments ()</h3>
+          <div class="comments">
+            ${this.series.comments.then ? `
+                <img src="./images/loading.svg">
+              ` : `
+              ${this.series.comments.map((comment) => `
+                <div>${comment.creation_date}</div>
+                <b>${comment.username}</b>
+                <div>${comment.comment}</div>`).join('')}
+              `}
+            `}
+          </div>
         </div>
       </div>
     </div>` : ''}

@@ -188,3 +188,8 @@ section.details {
   top: 0;
   left: 0;
 }
+
+.comments {
+  display: grid;
+  grid-template-columns: 100px auto auto;
+}
