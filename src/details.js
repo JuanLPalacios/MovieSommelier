@@ -3,6 +3,12 @@ import { getDetails } from './tvmaze-api';
 import './images/loading.svg';
 import { addComment, getCommentList } from './Involvement-api';
 
+export async function commentsCount(promise) {
+  return promise
+    .then((comments) => comments.length)
+    .catch(() => 0);
+}
+
 export default class Details {
   _series;
 
@@ -30,9 +36,16 @@ export default class Details {
           .then((comments) => {
             series.comments = comments;
             this.update();
+            return comments;
           })
           .catch(() => {
             series.comments = [];
+            this.update();
+            return series.comments;
+          });
+        series.commentsLenth = commentsCount(series.comments)
+          .then((length) => {
+            series.commentsLenth = length;
             this.update();
           });
         this.series = series;
@@ -50,8 +63,6 @@ export default class Details {
   }
 
   update() {
-    let tst2 = ``;
-    let test = ``;
     this.detailsElement.innerHTML = `
       ${this.series ? `<div class="backdrop">
         <div class="modal">
@@ -79,7 +90,7 @@ export default class Details {
                 <div>${this.series.status}</div>
               </div>
             </div>
-            <h3>Comments ()</h3>
+            <h3>Comments (${this.series.commentsLenth.then ? '' : this.series.commentsLenth})</h3>
             <div class="comments">
             ${this.series.comments.then ? `
               <img src="./images/loading.svg">
