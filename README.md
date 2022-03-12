@@ -1,10 +1,10 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Leaderboard
+# MovieSommelier
 
-![screenshot](./src/images/ultimate-leaderboard.png)
+![screenshot](./screenshot.png)
 
-> The Ultimate Leaderboard app, stores and retrieves game high scores through an open leaderboard API. It uses webpack and ES6 features, notably modules.
+> Movie listing SPA prototype using tv-maze API and involvement API
 
 ## Built With
 
@@ -15,7 +15,7 @@
 
 ## Live Demo
 
-[Live Demo Link](https://joshuaivie.github.io/Ultimate-Leaderboard/)
+[Live Demo Link](https://juanlpalacios.github.io/MovieSommelier/)
 
 ## Getting Started
 
@@ -29,10 +29,10 @@
 
 - Run git clone on this project at the desired directory:
   ```
-  git clone https://github.com/joshuaivie/Ultimate-Leaderboard.git
+  git clone
   ```
   ```
-  cd Ultimate-Leaderboard
+  cd MovieSommelier
   ```
 - Install dependencies
 
@@ -60,11 +60,17 @@
 - Twitter: [@joshuaivie\_](https://twitter.com/joshuaivie_)
 - LinkedIn: [joshuaivie](https://linkedin.com/in/joshuaivie)
 
+👤 **Juan Luis Palacios**
+
+- GitHub: [@JuanLPalacios](https://github.com/JuanLPalacios)
+- Twitter: [@JuanLuisPalac20](https://twitter.com/twitterhandle)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/juan-luis-palacios-p%C3%A9rez-95b39a228/)
+
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/joshuaivie/Ultimate-Leaderboard/issues).
+Feel free to check the [issues page](https://github.com/joshuaivie/MovieSommelier/issues).
 
 ## Show your support
 
