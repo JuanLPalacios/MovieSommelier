@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { getDetails } from './tvmaze-api';
 import './images/loading.svg';
-import { getCommentList } from './Involvement-api';
+import { addComment, getCommentList } from './Involvement-api';
 
 export default class Details {
   _series;
@@ -30,10 +30,13 @@ export default class Details {
           .then((comments) => {
             series.comments = comments;
             this.update();
+          })
+          .catch(() => {
+            series.comments = [];
+            this.update();
           });
         this.series = series;
-      })
-        .catch(() => this.navigate(window.location.hash));
+      }).catch(() => this.navigate(window.location.hash));
     }
     this._series = value;
     this.update();
@@ -47,48 +50,75 @@ export default class Details {
   }
 
   update() {
+    let tst2 = ``;
+    let test = ``;
     this.detailsElement.innerHTML = `
       ${this.series ? `<div class="backdrop">
-      <div class="modal">
-      <button class="close"><img src="./images/close.svg"></button>
-        <div class="series">
+        <div class="modal">
+          <button class="close"><img src="./images/close.svg"></button>
+          <div class="series">
           ${this.series.then ? `
-          <div class="backdrop">
-            <img src="./images/loading.svg">
-          </div>` : `
-          <div class="backdrop">
-            <img src="${this.series.image.original}">
-          </div>
-          <div  class="info">
-            <h2>${this.series.name}</h2>
-            <div>${this.series.summary}</div>
-            <div>
-              <div>Rating</div>
-              <div>${this.series.rating.average}</div>
-              <div>Genres</div>
-              <ul>${this.series.genres.map((tag) => `<li>${tag}</li>`).join('')}</ul>
-              <div>Premiered</div>
-              <div>${this.series.premiered}</div>
-              <div>Status</div>
-              <div>${this.series.status}</div>
+            <div class="img">
+              <img src="./images/loading.svg">
             </div>
-          </div>
-          <h3>Comments ()</h3>
-          <div class="comments">
+          ` : `
+            <div class="img">
+              <img src="${this.series.image.original}">
+            </div>
+            <div  class="info">
+              <h2>${this.series.name}</h2>
+              <div>${this.series.summary}</div>
+              <div>
+                <div>Rating</div>
+                <div>${this.series.rating.average}</div>
+                <div>Genres</div>
+                <ul>${this.series.genres.map((tag) => `<li>${tag}</li>`).join('')}</ul>
+                <div>Premiered</div>
+                <div>${this.series.premiered}</div>
+                <div>Status</div>
+                <div>${this.series.status}</div>
+              </div>
+            </div>
+            <h3>Comments ()</h3>
+            <div class="comments">
             ${this.series.comments.then ? `
-                <img src="./images/loading.svg">
-              ` : `
+              <img src="./images/loading.svg">
+            ` : `
               ${this.series.comments.map((comment) => `
                 <div>${comment.creation_date}</div>
                 <b>${comment.username}</b>
-                <div>${comment.comment}</div>`).join('')}
-              `}
+                <div>${comment.comment}</div>
+              `).join('')}
             `}
+            </div>
+            <h3>Add a comment</h3>
+            <form class="new-comment">
+              <input name="username" placeholder="Your name" required>
+              <textarea name="comment" placeholder="Your comment" required></textarea>
+              <button> Comment </button>
+            </form>
+          `}
           </div>
         </div>
-      </div>
-    </div>` : ''}
+      </div>` : ''}
     `;
     document.querySelectorAll('.close').forEach((closeBtn) => closeBtn.addEventListener('click', () => window.history.back()));
+    document.querySelectorAll('form').forEach((closeBtn) => closeBtn.addEventListener('submit', (e) => {
+      e.preventDefault();
+      e.currentTarget.querySelectorAll('button').forEach((btn) => { btn.disabled = true; });
+      const newComment = {};
+      new FormData(e.currentTarget).forEach((value, key) => { newComment[key] = value; });
+      e.currentTarget.reset();
+      addComment(this.series.id, newComment.username, newComment.comment)
+        .then(() => getCommentList(this.series.id)
+          .then((comments) => {
+            this.series.comments = comments;
+            this.update();
+          })
+          .catch(() => {
+            this.series.comments = [];
+            this.update();
+          }));
+    }));
   }
 }
