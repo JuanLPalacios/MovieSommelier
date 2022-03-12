@@ -27,7 +27,7 @@ export default class Details {
     if (value && value.then) {
       value.then((series) => {
         series.comments = getCommentList(series.id)
-          .then((comments) => { 
+          .then((comments) => {
             series.comments = comments;
             this.update();
           });
