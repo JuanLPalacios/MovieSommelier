@@ -120,16 +120,20 @@ export default class Details {
       const newComment = {};
       new FormData(e.currentTarget).forEach((value, key) => { newComment[key] = value; });
       e.currentTarget.reset();
-      addComment(this.series.id, newComment.username, newComment.comment)
+      commentsCount(addComment(this.series.id, newComment.username, newComment.comment)
         .then(() => getCommentList(this.series.id)
           .then((comments) => {
             this.series.comments = comments;
-            this.update();
+            return comments;
           })
           .catch(() => {
             this.series.comments = [];
-            this.update();
-          }));
+            return [];
+          })))
+        .then((length) => {
+          this.series.commentsLenth = length;
+          this.update();
+        });
     }));
   }
 }
