@@ -1,10 +1,10 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Leaderboard
+# MovieSommelier
 
-![screenshot](./src/images/ultimate-leaderboard.png)
+![screenshot](./screenshot.png)
 
->
+> Movie listing SPA prototype using tv-maze API and involvement API
 
 ## Built With
 
@@ -15,7 +15,7 @@
 
 ## Live Demo
 
-[Live Demo Link]()
+[Live Demo Link](https://juanlpalacios.github.io/MovieSommelier/)
 
 ## Getting Started
 
@@ -32,7 +32,7 @@
   git clone
   ```
   ```
-  cd Ultimate-Leaderboard
+  cd MovieSommelier
   ```
 - Install dependencies
 
