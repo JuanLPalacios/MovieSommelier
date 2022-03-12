@@ -193,3 +193,9 @@ section.details {
   display: grid;
   grid-template-columns: 100px auto auto;
 }
+
+form.new-comment {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
