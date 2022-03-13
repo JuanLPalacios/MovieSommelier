@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { getDetails } from './tvmaze-api';
 import './images/loading.svg';
+import './images/close.svg';
 import { addComment, getCommentList } from './Involvement-api';
 
 export async function commentsCount(promise) {
