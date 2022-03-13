@@ -150,6 +150,7 @@ li.movie.card {
   display: grid;
   grid-template-columns: 60% 40%;
   gap: 20px;
+  align-content: start;
 }
 
 .info ul {
@@ -157,9 +158,11 @@ li.movie.card {
   list-style: none;
   padding: 0;
   gap: 5px;
+  flex-wrap: wrap;
 }
 
 .info ul > li {
+  font-weight: bold;
   padding: 5px;
   background: var(--secondary-color-light);
 }
@@ -183,6 +186,7 @@ li.movie.card {
 
 .backdrop > .modal .info > h2 {
   grid-column-end: span 2;
+  margin: 0;
 }
 
 button.close {
